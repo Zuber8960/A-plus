@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import AboutPage from "./pages/AboutPage";
@@ -19,6 +19,22 @@ const navItems = [
 
 function App() {
   const [activePage, setActivePage] = useState("home");
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    const initialTheme = savedTheme || "light";
+    setTheme(initialTheme);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleThemeToggle = () => {
+    setTheme((currentTheme) => (currentTheme === "light" ? "dark" : "light"));
+  };
 
   const pageContent = useMemo(() => {
     switch (activePage) {
@@ -45,6 +61,8 @@ function App() {
         navItems={navItems}
         activePage={activePage}
         onNavigate={setActivePage}
+        theme={theme}
+        onToggleTheme={handleThemeToggle}
       />
       <main className="content-shell">{pageContent}</main>
       <Footer onNavigate={setActivePage} />
