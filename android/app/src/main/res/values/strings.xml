@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">APlus</string>
+    <string name="title_activity_main">APlus</string>
+    <string name="package_name">com.zuberah.aplus</string>
+    <string name="custom_url_scheme">com.zuberah.aplus</string>
+</resources>
